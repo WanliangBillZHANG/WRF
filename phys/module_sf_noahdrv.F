@@ -10,7 +10,7 @@ MODULE module_sf_noahdrv
       &                         SALP_DATA, REFDK_DATA, REFKDT_DATA, FRZK_DATA, ZBOT_DATA, CZIL_DATA,        &
       &                         SMLOW_DATA, SMHIGH_DATA, LVCOEF_DATA, NSLOPE, &
       &                         FRH2O,ZTOPVTBL,ZBOTVTBL, &
-      &                         LOW_DENSITY_RESIDENTIAL, HIGH_DENSITY_RESIDENTIAL, HIGH_INTENSITY_INDUSTRIAL
+      &                         LCZ_1,LCZ_2,LCZ_3,LCZ_4,LCZ_5,LCZ_6,LCZ_7,LCZ_8,LCZ_9,LCZ_10,LCZ_11
 
   USE module_sf_urban,    only: urban, oasis, IRI_SCHEME
   USE module_sf_noahlsm_glacial_only, only: sflx_glacial
