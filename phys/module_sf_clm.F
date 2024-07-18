@@ -5121,8 +5121,10 @@ CONTAINS
 !--------------------------------------
 ! Input variables lsm --> urban
 
-          IF( IVGTYP(I,J) == 1 .or. IVGTYP(I,J) == low_density_residential .or. &
-              IVGTYP(I,J) == high_density_residential .or. IVGTYP(I,J) == high_intensity_industrial ) THEN
+ IF( IVGTYP(I,J) == 1    .or. IVGTYP(I,J) == LCZ_1 .or. IVGTYP(I,J) == LCZ_2 .or. &
+     IVGTYP(I,J) == LCZ_3.or. IVGTYP(I,J) == LCZ_4 .or. IVGTYP(I,J) == LCZ_5 .or. &
+     IVGTYP(I,J) == LCZ_6.or. IVGTYP(I,J) == LCZ_7 .or. IVGTYP(I,J) == LCZ_8 .or. &
+     IVGTYP(I,J) == LCZ_9.or. IVGTYP(I,J) == LCZ_10 .or. IVGTYP(I,J) == LCZ_11 ) THEN
 
 ! Call urban
       forc_sols_buf  = swd_buf*0.35
