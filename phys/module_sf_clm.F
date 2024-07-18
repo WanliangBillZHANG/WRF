@@ -3915,7 +3915,7 @@ CONTAINS
 
   USE module_date_time
   USE module_sf_urban, only: urban
-  USE module_sf_noahlsm, only: low_density_residential, high_density_residential, high_intensity_industrial
+  USE module_sf_noahlsm, only: LCZ_1,LCZ_2,LCZ_3,LCZ_4,LCZ_5,LCZ_6,LCZ_7,LCZ_8,LCZ_9,LCZ_10,LCZ_11
   USE module_ra_gfdleta,  only: cal_mon_day
   USE module_configure
 
