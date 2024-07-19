@@ -47,7 +47,7 @@
 ! Check consistency of namelist settings
 !
 !</DESCRIPTION>
-
+      USE module_bep_bem_helper, ONLY: nurbm
       IMPLICIT NONE
 
       LOGICAL :: exists, vnest
@@ -313,6 +313,19 @@
             wrf_err_message = '--- ERROR: Both km_opt and diff_opt need to be set in the namelist.input file.'
          CALL wrf_debug ( 0, TRIM( wrf_err_message ) )
          count_fatal_error = count_fatal_error + 1
+      END IF
+
+!-----------------------------------------------------------------------
+! Urban physics set up. If the run-time option for use_wudapt_lcz = 0,
+! then the number of urban classes is 3. Else, if the use_wudapt_lcz = 1, 
+! then the number increases to 11. The seemingly local variable 
+! assignment, "nurbm", is actually USE associated from the BEP BEM 
+! helper module.
+!-----------------------------------------------------------------------
+      IF      ( model_config_rec%use_wudapt_lcz .EQ. 0 ) THEN
+         nurbm = 3
+      ELSE IF ( model_config_rec%use_wudapt_lcz .EQ. 1 ) THEN
+         nurbm = 11
       END IF
 
 !-----------------------------------------------------------------------
