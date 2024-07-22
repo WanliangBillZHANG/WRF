@@ -2859,6 +2859,7 @@ CONTAINS
    INTEGER :: mynn_closure_level
 #endif
 
+CALL wrf_debug( 100, 'Bill 1' )
   if ( config_flags%fractional_seaice == 0 ) then
      xice_threshold = 0.5
   else if ( config_flags%fractional_seaice == 1 ) then
@@ -2990,7 +2991,7 @@ CONTAINS
 !-- initialize surface scheme
 
    sfc_select: SELECT CASE(config_flags%sf_surface_physics)
-
+CALL wrf_debug( 100, 'Bill 2' )
       CASE (SLABSCHEME)
 
            CALL slabinit(TSK,TMN,                              &
@@ -3013,6 +3014,7 @@ CONTAINS
                      its,ite, jts,jte, kts,kte                     )
 
 #endif
+CALL wrf_debug( 100, 'Bill 2.1' )
       CASE (LSMSCHEME)
           
           IF(TRIM(mminlu) .EQ. 'NLCD40')THEN
@@ -3024,7 +3026,7 @@ CONTAINS
             ENDDO
             ENDDO
           ENDIF
- 
+ CALL wrf_debug( 100, 'Bill 2.2' )
           CALL LSMINIT(VEGFRA,SNOW,SNOWC,SNOWH,CANWAT,SMSTAV,  &
                      SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,        &
                      ACSNOM,IVGTYP,ISLTYP,TSLB,SMOIS,SH2O,ZS,DZS, &
@@ -3036,17 +3038,18 @@ CONTAINS
                      ims,ime, jms,jme, kms,kme,                &
                      its,ite, jts,jte, kts,kte                 )
 
-
+CALL wrf_debug( 100, 'Bill 3' )
 !URBAN
+
           IF ((SF_URBAN_PHYSICS.eq.1).OR.(SF_URBAN_PHYSICS.EQ.2).OR.(SF_URBAN_PHYSICS.EQ.3)) THEN
 
              IF ( PRESENT( FRC_URB2D ) .AND. PRESENT( UTYPE_URB2D )) THEN
-                
+CALL wrf_debug( 100, 'Bill 4' )                
                 CALL urban_param_init(DZR,DZB,DZG,num_soil_layers,                   & !urban
                                 sf_urban_physics,config_flags%use_wudapt_lcz)
 !                                num_roof_layers,num_wall_layers,road_soil_layers)   !urban
                                
-                
+CALL wrf_debug( 100, 'Bill 5' )                
                 CALL urban_var_init(ISURBAN,TSK,TSLB,TMN,IVGTYP,                     & !urban
                               ims,ime,jms,jme,kms,kme,num_soil_layers,               & !urban
 !                              num_roof_layers,num_wall_layers,num_road_layers, & !urban
@@ -3113,7 +3116,7 @@ CONTAINS
           
 !danli mosaic
 
-
+CALL wrf_debug( 100, 'Bill 6' )
           IF (SF_surface_mosaic.eq.1) THEN
 
 CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_flags%ISICE, XLAND, XICE,config_flags%fractional_seaice,TSK,TSLB,SMOIS,SH2O,SNOW,SNOWC,SNOWH,CANWAT,  &                
@@ -3148,7 +3151,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
           ENDIF               
           
 !
-
+CALL wrf_debug( 100, 'Bill 7' )
       CASE (NOAHMPSCHEME)
           IF ( TRIM(mminlu) .EQ. 'NLCD40' ) THEN
              CALL wrf_error_fatal ( 'NoahMP does not work with NLCD data. Stop.' )
@@ -3178,11 +3181,12 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                      gecros_state                              & ! Optional gecros crop
 #endif
                      )
-
+CALL wrf_debug( 100, 'Bill 8' )
           IF ((SF_URBAN_PHYSICS.eq.1).OR.(SF_URBAN_PHYSICS.EQ.2).OR.(SF_URBAN_PHYSICS.EQ.3)) THEN
              IF ( PRESENT( FRC_URB2D ) .AND. PRESENT( UTYPE_URB2D )) THEN
                 CALL urban_param_init(DZR,DZB,DZG,num_soil_layers,                   & !urban
                                 sf_urban_physics,config_flags%use_wudapt_lcz)
+CALL wrf_debug( 100, 'Bill 9' )
                 CALL urban_var_init(ISURBAN,TSK,TSLB,TMN,IVGTYP,               & !urban
                               ims,ime,jms,jme,kms,kme,num_soil_layers,         & !urban
                               LCZ_1_TABLE,LCZ_2_TABLE,LCZ_3_TABLE,LCZ_4_TABLE, & !urban
@@ -3248,7 +3252,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                 CALL wrf_error_fatal ( 'arguments not present for calling urban model' )
              ENDIF
           ENDIF
-
+CALL wrf_debug( 100, 'Bill 10' )
       CASE (RUCLSMSCHEME)
 !          if(isfc .ne. 2)CALL wrf_error_fatal &
 !           ( 'module_physics_init: use myjsfc and myjpbl scheme for this lsm option' )
@@ -3399,7 +3403,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
      ENDIF
  
 !-- initialize pbl scheme
-
+CALL wrf_debug( 100, 'Bill 11' )
    pbl_select: SELECT CASE(config_flags%bl_pbl_physics)
 
       CASE (YSUSCHEME)
