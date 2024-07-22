@@ -1604,7 +1604,6 @@ CONTAINS
                 trv_urb4d,qr_urb4d,qgr_urb3d,tgr_urb3d,                & !RMS
                 drain_urb4d,draingr_urb3d,sfrv_urb3d,                  & !RMS
                 lfrv_urb3d,dgr_urb3d,dg_urb3d,lfr_urb3d,lfg_urb3d,     & !RMS
-                rainbl,swddir,swddif,                                  & !RMS
                 lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,                  &
                 a_u_bep,a_v_bep,a_t_bep,                               &
                 a_e_bep,b_u_bep,b_v_bep,                               &
