@@ -2510,7 +2510,7 @@ end function checkIfHarvest
                                 chs,           chs2,           cqs2,                        & !H
                       num_urban_ndm,  urban_map_zrd,  urban_map_zwd, urban_map_gd,          & !I multi-layer urban
                        urban_map_zd,  urban_map_zdf,   urban_map_bd, urban_map_wd,          & !I multi-layer urban
-                      urban_map_gbd,  urban_map_fbd,                                        & !I multi-layer urban
+                      urban_map_gbd,  urban_map_fbd, urban_map_zgrd,                                      & !I multi-layer urban
                        num_urban_hi,                                                        & !I multi-layer urban
                           trb_urb4d,      tw1_urb4d,      tw2_urb4d,  tgb_urb4d,            & !H multi-layer urban
                          tlev_urb3d,     qlev_urb3d,                                        & !H multi-layer urban
@@ -2751,6 +2751,7 @@ end function checkIfHarvest
      INTEGER,                                                           INTENT(IN   ) :: urban_map_wd
      INTEGER,                                                           INTENT(IN   ) :: urban_map_gbd
      INTEGER,                                                           INTENT(IN   ) :: urban_map_fbd
+     INTEGER,                                                           INTENT(IN   ) :: urban_map_zgrd
      INTEGER,                                                           INTENT(IN   ) :: NUM_URBAN_HI
      REAL, OPTIONAL, DIMENSION( ims:ime, 1:num_urban_hi, jms:jme ),     INTENT(IN   ) :: hi_urb2d
      REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ),                     INTENT(IN   ) :: lp_urb2d
@@ -2781,6 +2782,20 @@ end function checkIfHarvest
      REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zd , jms:jme ),    INTENT(INOUT) :: sfw2_urb3d
      REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ),    INTENT(INOUT) :: sfr_urb3d
      REAL, OPTIONAL, DIMENSION( ims:ime, 1:num_urban_ndm, jms:jme ),    INTENT(INOUT) :: sfg_urb3d
+     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: ep_pv_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ), INTENT(INOUT) :: t_pv_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zgrd, jms:jme ),INTENT(INOUT) :: trv_urb4d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zgrd, jms:jme ),INTENT(INOUT) :: qr_urb4d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime,jms:jme ), INTENT(INOUT) :: qgr_urb3d  !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime,jms:jme ), INTENT(INOUT) :: tgr_urb3d  !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ),INTENT(INOUT) :: drain_urb4d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: draingr_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ),INTENT(INOUT) :: sfrv_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ),INTENT(INOUT) :: lfrv_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ),INTENT(INOUT) :: dgr_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:num_urban_ndm, jms:jme ),INTENT(INOUT) :: dg_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ),INTENT(INOUT) :: lfr_urb3d !GRZ
+     REAL, OPTIONAL, DIMENSION( ims:ime, 1:num_urban_ndm, jms:jme ),INTENT(INOUT) :: lfg_urb3d !GRZ
      REAL, OPTIONAL, DIMENSION( ims:ime, kms:kme, jms:jme ),            INTENT(INOUT) :: a_u_bep   !Implicit momemtum component X-direction
      REAL, OPTIONAL, DIMENSION( ims:ime, kms:kme, jms:jme ),            INTENT(INOUT) :: a_v_bep   !Implicit momemtum component Y-direction
      REAL, OPTIONAL, DIMENSION( ims:ime, kms:kme, jms:jme ),            INTENT(INOUT) :: a_t_bep   !Implicit component pot. temperature
@@ -3111,7 +3126,7 @@ END DO
                declin_urb,   cosz_urb2d,    omg_urb2d,                     &
             num_urban_ndm, urban_map_zrd, urban_map_zwd, urban_map_gd,     &
              urban_map_zd, urban_map_zdf,  urban_map_bd, urban_map_wd,     &
-            urban_map_gbd, urban_map_fbd,  num_urban_hi,                   &
+            urban_map_gbd, urban_map_fbd,  urban_map_zgrd,num_urban_hi,                   &
                 trb_urb4d,    tw1_urb4d,    tw2_urb4d,    tgb_urb4d,       &
                tlev_urb3d,   qlev_urb3d, tw1lev_urb3d, tw2lev_urb3d,       &
               tglev_urb3d,  tflev_urb3d,  sf_ac_urb3d,  lf_ac_urb3d,       &
