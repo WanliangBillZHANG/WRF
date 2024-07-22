@@ -3081,6 +3081,7 @@ CONTAINS
                               TRV_URB4D,QR_URB4D,QGR_URB3D,TGR_URB3D,          & !GRZ
                               DRAIN_URB4D,DRAINGR_URB3D,SFRV_URB3D,            & !GRZ
                               LFRV_URB3D,DGR_URB3D,DG_URB3D,LFR_URB3D,LFG_URB3D,&!GRZ
+                              SMOIS,                                           & !GRZ
                               LP_URB2D,HI_URB2D,LB_URB2D,                      & !urban
                               HGT_URB2D,MH_URB2D,STDH_URB2D,                   & !urban
                               LF_URB2D,                                        & !urban
@@ -3216,6 +3217,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                               TRV_URB4D,QR_URB4D,QGR_URB3D,TGR_URB3D,          & !GRZ
                               DRAIN_URB4D,DRAINGR_URB3D,SFRV_URB3D,            & !GRZ
                               LFRV_URB3D,DGR_URB3D,DG_URB3D,LFR_URB3D,LFG_URB3D,&!GRZ
+                              SMOIS,                                           & 
                               LP_URB2D,HI_URB2D,LB_URB2D,                      & !urban
                               HGT_URB2D,MH_URB2D,STDH_URB2D,                   & !urban
                               LF_URB2D,                                        & !urban
