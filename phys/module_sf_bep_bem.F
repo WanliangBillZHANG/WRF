@@ -83,7 +83,7 @@ MODULE module_sf_bep_bem
                       num_urban_ndm,  urban_map_zrd,  urban_map_zwd, urban_map_gd, &
                        urban_map_zd,  urban_map_zdf,   urban_map_bd, urban_map_wd, &
                       urban_map_gbd,  urban_map_fbd,                               &
-                       num_urban_hi,                                               &
+                       urban_map_zgrd,num_urban_hi,                                               &
                       trb_urb4d,tw1_urb4d,tw2_urb4d,tgb_urb4d,                     &
                       tlev_urb3d,qlev_urb3d,tw1lev_urb3d,tw2lev_urb3d,             &
                       tglev_urb3d,tflev_urb3d,sf_ac_urb3d,lf_ac_urb3d,             &
@@ -141,10 +141,19 @@ MODULE module_sf_bep_bem
    INTEGER, INTENT(IN  ) :: urban_map_gbd
    INTEGER, INTENT(IN  ) :: urban_map_fbd
    INTEGER, INTENT(IN  ) :: num_urban_hi
+INTEGER , INTENT(IN)        ::     urban_map_zgrd
    REAL, DIMENSION( ims:ime, 1:urban_map_zrd, jms:jme ), INTENT(INOUT) :: trb_urb4d
    REAL, DIMENSION( ims:ime, 1:urban_map_zwd, jms:jme ), INTENT(INOUT) :: tw1_urb4d
    REAL, DIMENSION( ims:ime, 1:urban_map_zwd, jms:jme ), INTENT(INOUT) :: tw2_urb4d
    REAL, DIMENSION( ims:ime, 1:urban_map_gd , jms:jme ), INTENT(INOUT) :: tgb_urb4d
+   REAL, DIMENSION( ims:ime, 1:urban_map_zgrd, jms:jme ), INTENT(INOUT) :: trv_urb4d
+   REAL, DIMENSION( ims:ime, 1:urban_map_zgrd, jms:jme ), INTENT(INOUT) :: qr_urb4d
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: qgr_urb3d
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: tgr_urb3d
+   REAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ), INTENT(INOUT) :: drain_urb4d
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN) :: rainbl
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: draingr_urb3d
+
 !New variables used for BEM
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ):: qv_phy
    REAL, DIMENSION( ims:ime, 1:urban_map_bd , jms:jme ), INTENT(INOUT) :: tlev_urb3d
@@ -156,6 +165,8 @@ MODULE module_sf_bep_bem
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: lf_ac_urb3d
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: sf_ac_urb3d
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: cm_ac_urb3d
+   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: ep_pv_urb3d
+   REAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ), INTENT(INOUT) :: t_pv_urb3d
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: sfvent_urb3d
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: lfvent_urb3d
    REAL, DIMENSION( ims:ime, 1:urban_map_wd , jms:jme ), INTENT(INOUT) :: sfwin1_urb3d
