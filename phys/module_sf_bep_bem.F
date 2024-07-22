@@ -90,6 +90,12 @@ MODULE module_sf_bep_bem
                       cm_ac_urb3d,sfvent_urb3d,lfvent_urb3d,                       &
                       sfwin1_urb3d,sfwin2_urb3d,                                   &
                       sfw1_urb3d,sfw2_urb3d,sfr_urb3d,sfg_urb3d,                   &
+		      ep_pv_urb3d,t_pv_urb3d,                                      &
+		      trv_urb4d,qr_urb4d,qgr_urb3d,tgr_urb3d,                      &
+                      drain_urb4d,draingr_urb3d,                                   &
+		      sfrv_urb3d,lfrv_urb3d,                                       &
+                      dgr_urb3d,dg_urb3d,                                          &
+                      lfr_urb3d,lfg_urb3d,                                         &
                       lp_urb2d,hi_urb2d,lb_urb2d,hgt_urb2d,                        &
                       a_u,a_v,a_t,a_e,b_u,b_v,                                     &
                       b_t,b_e,b_q,dlg,dl_u,sf,vl,                                  &
@@ -151,7 +157,7 @@ INTEGER , INTENT(IN)        ::     urban_map_zgrd
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: qgr_urb3d
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: tgr_urb3d
    REAL, DIMENSION( ims:ime, 1:urban_map_zdf, jms:jme ), INTENT(INOUT) :: drain_urb4d
-   REAL, DIMENSION( ims:ime, jms:jme ), INTENT(IN) :: rainbl
+
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(INOUT) :: draingr_urb3d
 
 !New variables used for BEM
