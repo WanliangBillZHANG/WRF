@@ -2520,6 +2520,10 @@ end function checkIfHarvest
                        sfvent_urb3d,   lfvent_urb3d,                                        & !H multi-layer urban
                        sfwin1_urb3d,   sfwin2_urb3d,                                        & !H multi-layer urban
                          sfw1_urb3d,     sfw2_urb3d,      sfr_urb3d,  sfg_urb3d,            & !H multi-layer urban
+                        ep_pv_urb3d,     t_pv_urb3d,                                        & !RMS
+                          trv_urb4d,       qr_urb4d,      qgr_urb3d,  tgr_urb3d,            & !RMS
+                        drain_urb4d,  draingr_urb3d,     sfrv_urb3d, lfrv_urb3d,            & !RMS
+                          dgr_urb3d,       dg_urb3d,      lfr_urb3d,  lfg_urb3d,            & !RMS
                            lp_urb2d,       hi_urb2d,       lb_urb2d,  hgt_urb2d,            & !H multi-layer urban
                            mh_urb2d,     stdh_urb2d,       lf_urb2d,                        & !SLUCM
                              th_phy,            rho,          p_phy,        ust,            & !I multi-layer urban
@@ -3133,6 +3137,10 @@ END DO
               cm_ac_urb3d, sfvent_urb3d, lfvent_urb3d,                     &
              sfwin1_urb3d, sfwin2_urb3d,                                   &
                sfw1_urb3d,   sfw2_urb3d,    sfr_urb3d,    sfg_urb3d,       &
+              ep_pv_urb3d,   t_pv_urb3d,                                   & !RMS
+                trv_urb4d,     qr_urb4d,    qgr_urb3d,   tgr_urb3d,        & !RMS
+              drain_urb4d,draingr_urb3d,   sfrv_urb3d,  lfrv_urb3d,        & !RMS
+                dgr_urb3d,     dg_urb3d,    lfr_urb3d,   lfg_urb3d,        & !RMS
                  lp_urb2d,     hi_urb2d,     lb_urb2d,    hgt_urb2d,       &
                   a_u_bep,      a_v_bep,      a_t_bep,                     &
                   a_e_bep,      b_u_bep,      b_v_bep,                     &
