@@ -2993,9 +2993,8 @@ CALL wrf_debug( 100, 'Bill 1' )
 
 
 !-- initialize surface scheme
-
-   sfc_select: SELECT CASE(config_flags%sf_surface_physics)
 CALL wrf_debug( 100, 'Bill 2' )
+   sfc_select: SELECT CASE(config_flags%sf_surface_physics)
       CASE (SLABSCHEME)
 
            CALL slabinit(TSK,TMN,                              &
