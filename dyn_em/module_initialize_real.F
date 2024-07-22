@@ -2967,12 +2967,13 @@ integer::oops1,oops2
                   IF ( grid%FRC_URB2D(i,j) .GE. 0.5 .AND.  &
                        grid%ivgtyp(i,j).NE.1 ) grid%ivgtyp(i,j)=1
               ENDIF
-
+print *, 'here 1'
               IF ( grid%FRC_URB2D(i,j) == 0. ) THEN
                  IF ( (MMINLU == 'NLCD40' .OR. MMINLU == 'MODIFIED_IGBP_MODIS_NOAH') .AND. &
                    (grid%ivgtyp(i,j)==24 .OR. grid%ivgtyp(i,j)==25 .OR. grid%ivgtyp(i,j)==26 .OR. grid%ivgtyp(i,j)==13) ) grid%FRC_URB2D(i,j) = 0.9
                  IF ( MMINLU == 'USGS' .AND. grid%ivgtyp(i,j)==1 ) grid%FRC_URB2D(i,j) = 0.9
               ENDIF
+print *, 'here 2'
                IF ( skip_middle_points_t ( ids , ide , jds , jde , i , j , em_width , hold_ups ) ) CYCLE 
                grid%LP_URB2D(i,j)  = grid%URB_PARAM(i,91,j)
                grid%LB_URB2D(i,j)  = grid%URB_PARAM(i,95,j)
@@ -2980,7 +2981,7 @@ integer::oops1,oops2
             END DO
          END DO
       ENDIF
-
+print *, 'here 3'
       IF ( ( config_flags%sf_urban_physics == 2 ) .OR. ( config_flags%sf_urban_physics == 3 ) ) THEN
          DO j = jts , MIN(jde-1,jte)
             DO i = its , MIN(ide-1,ite)
