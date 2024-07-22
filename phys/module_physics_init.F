@@ -152,6 +152,10 @@ CONTAINS
                          SFWIN1_URB3D,SFWIN2_URB3D,              & !Optional multi-layer urban
                          SFW1_URB3D,SFW2_URB3D,                  & !Optional multi-layer urban
                          SFR_URB3D,SFG_URB3D,                    & !Optional multi-layer urban
+                         EP_PV_URB3D,T_PV_URB3D,                         & !GRZ
+                         TRV_URB4D,QR_URB4D,QGR_URB3D,TGR_URB3D,         & !GRZ
+                         DRAIN_URB4D,DRAINGR_URB3D,SFRV_URB3D,           & !GRZ
+                         LFRV_URB3D,DGR_URB3D,DG_URB3D,LFR_URB3D,LFG_URB3D,&!GRZ
                          LP_URB2D,HI_URB2D,LB_URB2D,             & !Optional multi-layer urban
                          HGT_URB2D,MH_URB2D,STDH_URB2D,          & !Optional multi-layer urban
                          LF_URB2D,                               & !Optional multi-layer urban
