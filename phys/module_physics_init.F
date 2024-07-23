@@ -2823,7 +2823,7 @@ CONTAINS
   else if ( config_flags%fractional_seaice == 1 ) then
      xice_threshold = 0.02
   endif
- CALL wrf_debug( 100, 'Bill debug 1' )
+
 !-- calculate pbl time step
 
    STEPBL = nint(BLDT*60./DT)
@@ -2842,7 +2842,7 @@ CONTAINS
      ENDDO
    ENDIF
    ENDIF
-CALL wrf_debug( 100, 'Bill debug 2' )
+
    IF(PRESENT(TSK_SAVE))THEN
    IF(.NOT.restart .AND. config_flags%fractional_seaice.EQ.1)THEN
      DO j=jts,jte
@@ -2860,7 +2860,7 @@ CALL wrf_debug( 100, 'Bill debug 2' )
       CASE (SFCLAYSCHEME)
            CALL sfclayinit( allowed_to_read )
            isfc = 1
-CALL wrf_debug( 100, 'Bill debug 3' )
+
       CASE (SFCLAYREVSCHEME)
             CALL sfclayrevinit
            isfc = 1
@@ -2946,7 +2946,7 @@ CALL wrf_debug( 100, 'Bill debug 3' )
 
    END SELECT sfclay_select
 
-CALL wrf_debug( 100, 'Bill debug 4' )
+
 !-- initialize surface scheme
 
    sfc_select: SELECT CASE(config_flags%sf_surface_physics)
@@ -2984,7 +2984,7 @@ CALL wrf_debug( 100, 'Bill debug 4' )
             ENDDO
             ENDDO
           ENDIF
-CALL wrf_debug( 100, 'Bill debug 5' )
+
  
           CALL LSMINIT(VEGFRA,SNOW,SNOWC,SNOWH,CANWAT,SMSTAV,  &
                      SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,        &
@@ -2996,19 +2996,19 @@ CALL wrf_debug( 100, 'Bill debug 5' )
                      ids,ide, jds,jde, kds,kde,                &
                      ims,ime, jms,jme, kms,kme,                &
                      its,ite, jts,jte, kts,kte                 )
-CALL wrf_debug( 100, 'Bill debug 6' )
+
 
 !URBAN
           IF ((SF_URBAN_PHYSICS.eq.1).OR.(SF_URBAN_PHYSICS.EQ.2).OR.(SF_URBAN_PHYSICS.EQ.3)) THEN
-CALL wrf_debug( 100, 'Bill debug 7' )
+
              IF ( PRESENT( FRC_URB2D ) .AND. PRESENT( UTYPE_URB2D )) THEN
-CALL wrf_debug( 100, 'Bill debug 8' )
+
 
                 CALL urban_param_init(DZR,DZB,DZG,num_soil_layers,                   & !urban
                                 sf_urban_physics,config_flags%use_wudapt_lcz)
 !                                num_roof_layers,num_wall_layers,road_soil_layers)   !urban
                                
-CALL wrf_debug( 100, 'Bill debug 9' )                
+               
                 CALL urban_var_init(ISURBAN,TSK,TSLB,TMN,IVGTYP,                     & !urban
                               ims,ime,jms,jme,kms,kme,num_soil_layers,               & !urban
 !                              num_roof_layers,num_wall_layers,num_road_layers, & !urban
@@ -3054,7 +3054,7 @@ CALL wrf_debug( 100, 'Bill debug 9' )
 #if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
                max_utype_urb2d = wrf_dm_max_real(max_utype_urb2d)
 #endif
-CALL wrf_debug( 100, 'Bill debug 10' )
+
                IF (config_flags%use_wudapt_lcz.eq.0 .and. max_utype_urb2d.gt.3.0) THEN  !new LCZ
                  CALL wrf_error_fatal &
                  ('USING 10 WUDAPT LCZ WITHOUT URBPARM_LCZ.TBL. SET USE_WUDAPT_LCZ=1')
@@ -3067,12 +3067,12 @@ CALL wrf_debug( 100, 'Bill debug 10' )
                 CALL wrf_error_fatal ( 'arguments not present for calling urban model' )
              ENDIF
           ENDIF
-CALL wrf_debug( 100, 'Bill debug 11' )          
+     
 !danli mosaic
 
 
           IF (SF_surface_mosaic.eq.1) THEN
-CALL wrf_debug( 100, 'Bill debug 12' )
+
 CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_flags%ISICE, XLAND, XICE,config_flags%fractional_seaice,TSK,TSLB,SMOIS,SH2O,SNOW,SNOWC,SNOWH,CANWAT,  &                
                   ids,ide, jds,jde, kds,kde,  &
                   ims,ime, jms,jme, kms,kme,  &
@@ -3105,7 +3105,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
           ENDIF               
           
 !
-CALL wrf_debug( 100, 'Bill debug 12' )
+
 
       CASE (NOAHMPSCHEME)
           IF ( TRIM(mminlu) .EQ. 'NLCD40' ) THEN
@@ -3480,7 +3480,7 @@ CALL wrf_debug( 100, 'Bill debug 12' )
 
 #if (NMM_CORE != 1)
       CASE (BOULACSCHEME)
-CALL wrf_debug( 100, 'Bill debug 13' )
+
            if(isfc .ne. 1 .and. isfc .ne. 2)CALL wrf_error_fatal &
             ( 'module_physics_init: use sfclay or myjsfc scheme for this pbl option' )
            CALL boulacinit(RUBLTEN,RVBLTEN,RTHBLTEN,RQVBLTEN,RQCBLTEN, &
