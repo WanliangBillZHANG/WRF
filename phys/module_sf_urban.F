@@ -2001,6 +2001,7 @@ ENDIF
    ICATE=0  
 
 print*, 'Bill 1'
+print*, 'use_wudapt_lcz=',use_wudapt_lcz
   if(USE_WUDAPT_LCZ.eq.0)then   !AndreaLCZ
    OPEN (UNIT=11,                &
          FILE='URBPARM.TBL', &
