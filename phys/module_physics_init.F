@@ -3003,6 +3003,7 @@ CALL wrf_debug( 100, 'Bill debug 6' )
 CALL wrf_debug( 100, 'Bill debug 7' )
              IF ( PRESENT( FRC_URB2D ) .AND. PRESENT( UTYPE_URB2D )) THEN
 CALL wrf_debug( 100, 'Bill debug 8' )
+print*, 'use_wudapt_lcz=', use_wudapt_lcz
                 CALL urban_param_init(DZR,DZB,DZG,num_soil_layers,                   & !urban
                                 sf_urban_physics,config_flags%use_wudapt_lcz)
 !                                num_roof_layers,num_wall_layers,road_soil_layers)   !urban
