@@ -2000,8 +2000,7 @@ ENDIF
 
    ICATE=0  
 
-print*, 'Bill 1'
-print*, 'use_wudapt_lcz=',use_wudapt_lcz
+
   if(USE_WUDAPT_LCZ.eq.0)then   !AndreaLCZ
    OPEN (UNIT=11,                &
          FILE='URBPARM.TBL', &
@@ -2016,7 +2015,7 @@ print*, 'use_wudapt_lcz=',use_wudapt_lcz
          ENDIF
 
  else
-print*, 'Bill 2'
+
    OPEN (UNIT=11,                &
          FILE='URBPARM_LCZ.TBL', &
          ACCESS='SEQUENTIAL',    &
@@ -2029,7 +2028,7 @@ print*, 'Bill 2'
          FATAL_ERROR('Error opening URBPARM_LCZ.TBL. Make sure URBPARM_LCZ.TBL (found in run/) is linked to the running directory.')
          ENDIF
  endif
-print*, 'Bill 3'
+
    READLOOP : do 
       read(11,'(A512)', iostat=iostatus) string
       if (iostatus /= 0) exit READLOOP
@@ -2038,11 +2037,11 @@ print*, 'Bill 3'
       indx = index(string,":")
       if (indx <= 0) cycle READLOOP
       name = trim(adjustl(string(1:indx-1)))
-      print*, 'Bill 4'
+
       ! Here are the variables we expect to be defined in the URBPARM.TBL:
       if (name == "Number of urban categories") then
          read(string(indx+1:),*) icate
-print*, 'Bill 5'
+
          IF (.not. ALLOCATED(ZR_TBL)) then
             ALLOCATE( ZR_TBL(ICATE), stat=allocate_status )
             if(allocate_status /= 0) FATAL_ERROR('Error allocating ZR_TBL in urban_param_init')
@@ -2168,7 +2167,7 @@ print*, 'Bill 5'
             ALLOCATE( GR_FRAC_ROOF_TBL(ICATE), stat=allocate_status )
             if(allocate_status /= 0) FATAL_ERROR('Error allocating GR_FRAC_ROOF_TBL in urban_param_init')
          endif
-print*, 'Bill 6'
+
          numdir_tbl = 0
          street_direction_tbl = -1.E36
          street_width_tbl = 0
@@ -2177,7 +2176,7 @@ print*, 'Bill 6'
          height_bin_tbl = -1.E36
          hpercent_bin_tbl = -1.E36
 !end BEP
-print*, 'Bill 7'
+
       else if (name == "ZR") then
          read(string(indx+1:),*) zr_tbl(1:icate)
       else if (name == "SIGMA_ZED") then
@@ -2295,7 +2294,7 @@ print*, 'Bill 7'
          read(string(indx+1:),*) dzgr(1:4)
 !for BEP
       else if (name == "STREET PARAMETERS") then
-print*, 'Bill 8'
+
          STREETLOOP : do
             read(11,'(A512)', iostat=iostatus) string
             if (string(1:1) == "#") cycle STREETLOOP
@@ -2309,7 +2308,7 @@ print*, 'Bill 8'
          enddo STREETLOOP
 
       else if (name == "BUILDING HEIGHTS") then
-print*, 'Bill 9'
+
          read(string(indx+1:),*) k
          HEIGHTLOOP : do
             read(11,'(A512)', iostat=iostatus) string
@@ -2375,7 +2374,7 @@ print*, 'Bill 9'
          FATAL_ERROR('URBPARM.TBL: Unrecognized NAME = "'//trim(name)//'" in Subr URBAN_PARAM_INIT')
       endif
    enddo READLOOP
-print*, 'Bill 10'
+
    CLOSE(11)
 
    ! Assign a few table values that do not need to come from URBPARM.TBL
@@ -2415,7 +2414,7 @@ print*, 'Bill 10'
 
       Z0C_TBL(LC) = ZR_TBL(LC) * ( 1.0 - ZDC_TBL(LC)/ZR_TBL(LC) ) * &
            exp (-(0.5 * beta_macd * Cd / (VonK**2) * ( 1.0-ZDC_TBL(LC)/ZR_TBL(LC) ) * Lambda_F )**(-0.5))
-print*, 'Bill 11'
+
       IF (SF_URBAN_PHYSICS == 1) THEN
          ! Include roof height variability in Macdonald
          ! to parameterize Z0R as a function of ZR_SD (Standard Deviation)
@@ -2424,7 +2423,7 @@ print*, 'Bill 11'
               * exp ( -(0.5 * beta_macd * Cd / (VonK**2) &
               * ( 1.0-ZDC_TBL(LC)/ZR_TBL(LC) ) * Lambda_FR )**(-0.5))
       ENDIF
-print*, 'Bill 12'
+
       !
       ! Z0HC still one-tenth of Z0C, as before ?
       !
@@ -2442,7 +2441,7 @@ print*, 'Bill 12'
          HGT=HGT-DHGT
          VFWS=VFWS+0.25*(1.-HGT/SQRT(HGT**2.+RW_TBL(LC)**2.))
       end do
-print*, 'Bill 13'
+
      VFWS=VFWS/99.
      VFWS=VFWS*2.
 
