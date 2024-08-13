@@ -65,7 +65,7 @@
 ! C. He 12/17/2020: optimized MFSNO values dependent on land type based on evaluation with SNOTEL SWE and MODIS SCF, surface albedo
  MFSNO =  4.00,  3.00,  3.00,  3.00,  4.00,  4.00,  2.00,  2.00,  2.00,  2.00,  1.00,  1.00,  1.00,  1.00,  1.00,  3.00,  3.00,  3.00,  3.00,  3.50,  3.50,  3.50,  3.50,  2.50,  3.50,  3.50,  3.50,
 ! C. He 12/17/2020: optimized snow cover factor (m) in SCF formulation to replace original constant 2.5*z0,z0=0.002m, based on evaluation with SNOTEL SWE and MODIS SCF, surface albedo
- SCFFAC= 0.042, 0.014, 0.014, 0.014, 0.026, 0.026, 0.020, 0.018, 0.016, 0.020, 0.008, 0.008, 0.008, 0.008, 0.008, 0.030, 0.020, 0.020, 0.016, 0.030, 0.030, 0.030, 0.030, 0.030, 0.030, 0.030, 0.030,  
+! SCFFAC= 0.042, 0.014, 0.014, 0.014, 0.026, 0.026, 0.020, 0.018, 0.016, 0.020, 0.008, 0.008, 0.008, 0.008, 0.008, 0.030, 0.020, 0.020, 0.016, 0.030, 0.030, 0.030, 0.030, 0.030, 0.030, 0.030, 0.030,  
 
  ! Row 1:  Vis
  ! Row 2:  Near IR
@@ -220,7 +220,7 @@
 ! C. He 12/17/2020: optimized MFSNO values dependent on land type based on evaluation with SNOTEL SWE and MODIS SCF, surface albedo
  MFSNO =  1.00,   1.00,   1.00,   1.00,   1.00,   2.00,   2.00,   2.00,   2.00,   2.00,   3.00,   3.00,   4.00,   4.00,   2.50,   3.00,   3.00,   3.50,   3.50,   3.50,
 ! C. He 12/17/2020: optimized snow cover factor (m) in SCF formulation to replace original constant 2.5*z0,z0=0.002m, based on evaluation with SNOTEL SWE and MODIS SCF, surface albedo
- SCFFAC = 0.008, 0.008,  0.008,  0.008,  0.008,  0.016,  0.016,  0.020,  0.020,  0.020,  0.020,  0.014,  0.042,  0.026,  0.030,  0.016,  0.030,  0.030,  0.030,  0.030,
+! SCFFAC = 0.008, 0.008,  0.008,  0.008,  0.008,  0.016,  0.016,  0.020,  0.020,  0.020,  0.020,  0.014,  0.042,  0.026,  0.030,  0.016,  0.030,  0.030,  0.030,  0.030,
 
  ! Row 1:  Vis
  ! Row 2:  Near IR
@@ -350,8 +350,8 @@
 
   Z0SNO  = 0.002        !snow surface roughness length (m) (0.002)
   SSI    = 0.03         !liquid water holding capacity for snowpack (m3/m3) (0.03)
-  SNOW_RET_FAC  = 5.e-5 !snowpack water release timescale factor (1/s)
-  SNOW_EMIS     = 0.95  !snow emissivity (bring from hard-coded value of 1.0 to here)
+!  SNOW_RET_FAC  = 5.e-5 !snowpack water release timescale factor (1/s)
+!  SNOW_EMIS     = 0.95  !snow emissivity (bring from hard-coded value of 1.0 to here)
   SWEMX  = 1.00         !new snow mass to fully cover old snow (mm)
                         !equivalent to 10mm depth (density = 100 kg/m3)
   TAU0          = 1.e6  !tau0 from Yang97 eqn. 10a
@@ -370,17 +370,17 @@
 
 /
 
-&noahmp_irrigation_parameters
-IRR_FRAC   = 0.10       ! irrigation Fraction
-IRR_HAR    = 20         ! number of days before harvest date to stop irrigation 
-IRR_LAI    = 0.50       ! Minimum lai to trigger irrigation
-IRR_MAD    = 0.60       ! management allowable deficit (0-1)
-FILOSS     = 0.10       ! fraction of flood irrigation loss (0-1) 
-SPRIR_RATE = 6.40       ! mm/h, sprinkler irrigation rate
-MICIR_RATE = 1.38       ! mm/h, micro irrigation rate
-FIRTFAC    = 1.00       ! flood application rate factor
-IR_RAIN    = 1.00       ! maximum precipitation to stop irrigation trigger
-/
+!&noahmp_irrigation_parameters
+!IRR_FRAC   = 0.10       ! irrigation Fraction
+!IRR_HAR    = 20         ! number of days before harvest date to stop irrigation 
+!IRR_LAI    = 0.50       ! Minimum lai to trigger irrigation
+!IRR_MAD    = 0.60       ! management allowable deficit (0-1)
+!FILOSS     = 0.10       ! fraction of flood irrigation loss (0-1) 
+!SPRIR_RATE = 6.40       ! mm/h, sprinkler irrigation rate
+!MICIR_RATE = 1.38       ! mm/h, micro irrigation rate
+!FIRTFAC    = 1.00       ! flood application rate factor
+!IR_RAIN    = 1.00       ! maximum precipitation to stop irrigation trigger
+!/
 
 &noahmp_crop_parameters
 
@@ -409,17 +409,17 @@ GDDS2      =  625.0,  675.0,  718.0,  718.0,  718.0,  ! GDD from seeding to init
 GDDS3      =  933.0, 1183.0,  933.0,  933.0,  933.0,  ! GDD from seeding to post vegetative
 GDDS4      = 1103.0, 1253.0, 1103.0, 1103.0, 1103.0,  ! GDD from seeding to intial reproductive
 GDDS5      = 1555.0, 1605.0, 1555.0, 1555.0, 1555.0,  ! GDD from seeding to pysical maturity
-C3PSN      =    0.0,    1.0,    1.0,    1.0,    1.0,  ! transfer crop-specific photosynthetic parameters
-KC25       =   30.0,   30.0,   30.0,   30.0,   30.0,  ! Zhe Zhang
-AKC        =    2.1,    2.1,    2.1,    2.1,    2.1,  ! 2020-02-05
-KO25       =   3.E4,   3.E4,   3.E4,   3.E4,   3.E4,  !
-AKO        =    1.2,    1.2,    1.2,    1.2,    1.2,  !
-AVCMX      =    2.4,    2.4,    2.4,    2.4,    2.4,  !
-VCMX25     =   60.0,   80.0,   60.0,   60.0,   55.0,  !
-BP         =   4.E4,   1.E4,   2.E3,   2.E3,   2.E3,  !
-MP         =     4.,     9.,     6.,     9.,     9.,  !
-FOLNMX     =    1.5,    1.5,    1.5,    1.5,    1.5,  !
-QE25       =   0.05,   0.06,   0.06,   0.06,   0.06,  !
+!C3PSN      =    0.0,    1.0,    1.0,    1.0,    1.0,  ! transfer crop-specific photosynthetic parameters
+!KC25       =   30.0,   30.0,   30.0,   30.0,   30.0,  ! Zhe Zhang
+!AKC        =    2.1,    2.1,    2.1,    2.1,    2.1,  ! 2020-02-05
+!KO25       =   3.E4,   3.E4,   3.E4,   3.E4,   3.E4,  !
+!AKO        =    1.2,    1.2,    1.2,    1.2,    1.2,  !
+!AVCMX      =    2.4,    2.4,    2.4,    2.4,    2.4,  !
+!VCMX25     =   60.0,   80.0,   60.0,   60.0,   55.0,  !
+!BP         =   4.E4,   1.E4,   2.E3,   2.E3,   2.E3,  !
+!MP         =     4.,     9.,     6.,     9.,     9.,  !
+!FOLNMX     =    1.5,    1.5,    1.5,    1.5,    1.5,  !
+!QE25       =   0.05,   0.06,   0.06,   0.06,   0.06,  !
 C3C4       =      2,      1,      2,      2,      2,  ! photosynthetic pathway:  1. = c3 2. = c4
 Aref       =    7.0,    7.0,    7.0,    7.0,    7.0,  ! reference maximum CO2 assimulation rate
 PSNRF      =   0.85,   0.85,   0.85,   0.85,   0.85,  ! CO2 assimulation reduction factor(0-1) (caused by non-modeling part,e.g.pest,weeds)
@@ -522,32 +522,32 @@ GRAINPT_S6 =    1.0,    1.0,    0.9,    0.9,    0.9,
 GRAINPT_S7 =    0.0,    0.0,    0.0,    0.0,    0.0,
 GRAINPT_S8 =    0.0,    0.0,    0.0,    0.0,    0.0,
 
-LFCT_S1    =    0.0,    0.0,    0.0,    0.0,    0.0,  ! carbohydrate translocation
-LFCT_S2    =    0.0,    0.0,    0.0,    0.0,    0.0,
-LFCT_S3    =    0.0,    0.,    0.4,    0.4,    0.4,
-LFCT_S4    =    0.0,    0.,    0.3,    0.3,    0.3,
-LFCT_S5    =    0.0,    0.0,   0.05,   0.05,   0.05,
-LFCT_S6    =    0.0,    0.0,   0.05,   0.05,   0.05,
-LFCT_S7    =    0.0,    0.0,    0.0,    0.0,    0.0,
-LFCT_S8    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!LFCT_S1    =    0.0,    0.0,    0.0,    0.0,    0.0,  ! carbohydrate translocation
+!LFCT_S2    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!LFCT_S3    =    0.0,    0.,    0.4,    0.4,    0.4,
+!LFCT_S4    =    0.0,    0.,    0.3,    0.3,    0.3,
+!LFCT_S5    =    0.0,    0.0,   0.05,   0.05,   0.05,
+!LFCT_S6    =    0.0,    0.0,   0.05,   0.05,   0.05,
+!LFCT_S7    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!LFCT_S8    =    0.0,    0.0,    0.0,    0.0,    0.0,
 
-STCT_S1    =    0.0,    0.0,    0.0,    0.0,    0.0,  ! carbohydrate translocation
-STCT_S2    =    0.0,    0.0,    0.0,    0.0,    0.0,
-STCT_S3    =    0.0,    0.,    0.4,    0.4,    0.4,
-STCT_S4    =    0.0,    0.,    0.3,    0.3,    0.3,
-STCT_S5    =    0.0,    0.,   0.05,   0.05,   0.05,
-STCT_S6    =    0.0,    0.0,   0.05,   0.05,   0.05,
-STCT_S7    =    0.0,    0.0,    0.0,    0.0,    0.0,
-STCT_S8    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!STCT_S1    =    0.0,    0.0,    0.0,    0.0,    0.0,  ! carbohydrate translocation
+!STCT_S2    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!STCT_S3    =    0.0,    0.,    0.4,    0.4,    0.4,
+!STCT_S4    =    0.0,    0.,    0.3,    0.3,    0.3,
+!STCT_S5    =    0.0,    0.,   0.05,   0.05,   0.05,
+!STCT_S6    =    0.0,    0.0,   0.05,   0.05,   0.05,
+!STCT_S7    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!STCT_S8    =    0.0,    0.0,    0.0,    0.0,    0.0,
 
-RTCT_S1    =    0.0,    0.0,    0.0,    0.0,    0.0,  ! carbohydrate translocation
-RTCT_S2    =    0.0,    0.0,    0.0,    0.0,    0.0,
-RTCT_S3    =    0.0,    0.,    0.4,    0.4,    0.4,
-RTCT_S4    =    0.0,    0.,    0.3,    0.3,    0.3,
-RTCT_S5    =    0.0,    0.,   0.05,   0.05,   0.05,
-RTCT_S6    =    0.0,    0.0,   0.05,   0.05,   0.05,
-RTCT_S7    =    0.0,    0.0,    0.0,    0.0,    0.0,
-RTCT_S8    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!RTCT_S1    =    0.0,    0.0,    0.0,    0.0,    0.0,  ! carbohydrate translocation
+!RTCT_S2    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!RTCT_S3    =    0.0,    0.,    0.4,    0.4,    0.4,
+!RTCT_S4    =    0.0,    0.,    0.3,    0.3,    0.3,
+!RTCT_S5    =    0.0,    0.,   0.05,   0.05,   0.05,
+!RTCT_S6    =    0.0,    0.0,   0.05,   0.05,   0.05,
+!RTCT_S7    =    0.0,    0.0,    0.0,    0.0,    0.0,
+!RTCT_S8    =    0.0,    0.0,    0.0,    0.0,    0.0,
 
 BIO2LAI    =  0.015,  0.030,  0.015,  0.015,  0.015,  ! leaf are per living leaf biomass [m^2/kg]
 
