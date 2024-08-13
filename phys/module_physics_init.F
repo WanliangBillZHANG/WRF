@@ -2817,7 +2817,7 @@ CONTAINS
 !local mynn 
    INTEGER :: mynn_closure_level
 #endif
-
+CALL wrf_debug ( 200 , 'bill 1' )
   if ( config_flags%fractional_seaice == 0 ) then
      xice_threshold = 0.5
   else if ( config_flags%fractional_seaice == 1 ) then
@@ -2852,7 +2852,7 @@ CONTAINS
      ENDDO
    ENDIF
    ENDIF
-
+CALL wrf_debug ( 200 , 'bill 2' )
 !-- initialize surface layer scheme
 
    sfclay_select: SELECT CASE(config_flags%sf_sfclay_physics)
@@ -2860,7 +2860,7 @@ CONTAINS
       CASE (SFCLAYSCHEME)
            CALL sfclayinit( allowed_to_read )
            isfc = 1
-
+CALL wrf_debug ( 200 , 'bill 3' )
       CASE (SFCLAYREVSCHEME)
             CALL sfclayrevinit
            isfc = 1
@@ -2948,7 +2948,7 @@ CONTAINS
 
 
 !-- initialize surface scheme
-
+CALL wrf_debug ( 200 , 'bill 4' )
    sfc_select: SELECT CASE(config_flags%sf_surface_physics)
 
       CASE (SLABSCHEME)
@@ -2984,7 +2984,7 @@ CONTAINS
             ENDDO
             ENDDO
           ENDIF
-
+CALL wrf_debug ( 200 , 'bill 5' )
  
           CALL LSMINIT(VEGFRA,SNOW,SNOWC,SNOWH,CANWAT,SMSTAV,  &
                      SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,        &
@@ -2997,7 +2997,7 @@ CONTAINS
                      ims,ime, jms,jme, kms,kme,                &
                      its,ite, jts,jte, kts,kte                 )
 
-
+CALL wrf_debug ( 200 , 'bill 6' )
 !URBAN
           IF ((SF_URBAN_PHYSICS.eq.1).OR.(SF_URBAN_PHYSICS.EQ.2).OR.(SF_URBAN_PHYSICS.EQ.3)) THEN
 
@@ -3054,7 +3054,7 @@ CONTAINS
 #if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
                max_utype_urb2d = wrf_dm_max_real(max_utype_urb2d)
 #endif
-
+CALL wrf_debug ( 200 , 'bill 7' )
                IF (config_flags%use_wudapt_lcz.eq.0 .and. max_utype_urb2d.gt.3.0) THEN  !new LCZ
                  CALL wrf_error_fatal &
                  ('USING 10 WUDAPT LCZ WITHOUT URBPARM_LCZ.TBL. SET USE_WUDAPT_LCZ=1')
@@ -3070,9 +3070,9 @@ CONTAINS
      
 !danli mosaic
 
-
+CALL wrf_debug ( 200 , 'bill 8' )
           IF (SF_surface_mosaic.eq.1) THEN
-
+CALL wrf_debug ( 200 , 'bill 9' )
 CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_flags%ISICE, XLAND, XICE,config_flags%fractional_seaice,TSK,TSLB,SMOIS,SH2O,SNOW,SNOWC,SNOWH,CANWAT,  &                
                   ids,ide, jds,jde, kds,kde,  &
                   ims,ime, jms,jme, kms,kme,  &
@@ -3106,12 +3106,13 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
           
 !
 
-
+CALL wrf_debug ( 200 , 'bill 10' )
       CASE (NOAHMPSCHEME)
+      
           IF ( TRIM(mminlu) .EQ. 'NLCD40' ) THEN
              CALL wrf_error_fatal ( 'NoahMP does not work with NLCD data. Stop.' )
           ENDIF
-
+CALL wrf_debug ( 200 , 'bill 11' )
           CALL NOAHMP_INIT(MMINLU, SNOW,SNOWH,CANWAT,ISLTYP,IVGTYP,XLAT,                 &
                      TSLB,SMOIS,SH2O,DZS, FNDSOILW, FNDSNOWH,          &
                      TSK,isnowxy  ,tvxy     ,tgxy     ,canicexy ,TMN,XICE,                  &
@@ -3136,11 +3137,12 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                      gecros_state                              & ! Optional gecros crop
 #endif
                      )
-
+CALL wrf_debug ( 200 , 'bill 12' )
           IF ((SF_URBAN_PHYSICS.eq.1).OR.(SF_URBAN_PHYSICS.EQ.2).OR.(SF_URBAN_PHYSICS.EQ.3)) THEN
              IF ( PRESENT( FRC_URB2D ) .AND. PRESENT( UTYPE_URB2D )) THEN
                 CALL urban_param_init(DZR,DZB,DZG,num_soil_layers,                   & !urban
                                 sf_urban_physics,config_flags%use_wudapt_lcz)
+                                CALL wrf_debug ( 200 , 'bill 13' )
                 CALL urban_var_init(ISURBAN,TSK,TSLB,TMN,IVGTYP,               & !urban
                               ims,ime,jms,jme,kms,kme,num_soil_layers,         & !urban
                               LCZ_1_TABLE,LCZ_2_TABLE,LCZ_3_TABLE,LCZ_4_TABLE, & !urban
@@ -3181,7 +3183,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                               B_T_BEP,B_Q_BEP,B_E_BEP,DLG_BEP,                 & !multi-layer urban
                               DL_U_BEP,SF_BEP,VL_BEP,                          & !multi-layer urban
                               FRC_URB2D, UTYPE_URB2D,config_flags%use_wudapt_lcz)!urban
-
+CALL wrf_debug ( 200 , 'bill 14' )
                max_utype_urb2d = maxval(UTYPE_URB2D)*1.0
 #if ( defined( DM_PARALLEL ) && ( ! defined( STUBMPI ) ) )
                max_utype_urb2d = wrf_dm_max_real(max_utype_urb2d)
@@ -3195,12 +3197,12 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                  CALL wrf_error_fatal &
                  ('USING URBPARM_LCZ.TBL WITH OLD 3 URBAN CLASSES. SET USE_WUDAPT_LCZ=0')
                ENDIF
-
+CALL wrf_debug ( 200 , 'bill 15' )
              ELSE
                 CALL wrf_error_fatal ( 'arguments not present for calling urban model' )
              ENDIF
           ENDIF
-
+CALL wrf_debug ( 200 , 'bill 16' )
       CASE (RUCLSMSCHEME)
 !          if(isfc .ne. 2)CALL wrf_error_fatal &
 !           ( 'module_physics_init: use myjsfc and myjpbl scheme for this lsm option' )
@@ -3351,14 +3353,13 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
      ENDIF
  
 !-- initialize pbl scheme
-
    pbl_select: SELECT CASE(config_flags%bl_pbl_physics)
 
       CASE (YSUSCHEME)
+      CALL wrf_debug ( 200 , 'bill 17' )
            if(isfc .ne. 1)CALL wrf_error_fatal &
             ( 'module_physics_init: Use sf_sfclay_physics= 1 or 91 for this pbl option' )
-           IF ((SF_URBAN_PHYSICS.eq.2).OR.(SF_URBAN_PHYSICS.EQ.3)) CALL wrf_error_fatal &
-            ( 'module_physics_init: use myj (option 2) or boulac (option 8) with BEP/BEM urban scheme' )
+            CALL wrf_debug ( 200 , 'bill 18' )
            CALL ysuinit(RUBLTEN,RVBLTEN,RTHBLTEN,RQVBLTEN,    &
                         RQCBLTEN,RQIBLTEN,P_QI,               &
                         PARAM_FIRST_SCALAR,                   &
@@ -3367,6 +3368,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                         ids, ide, jds, jde, kds, kde,         &
                         ims, ime, jms, jme, kms, kme,         &
                         its, ite, jts, jte, kts, kte          )
+                        CALL wrf_debug ( 200 , 'bill 19' )
       CASE (SHINHONGSCHEME)
            if(isfc .ne. 1)CALL wrf_error_fatal &
             ( 'module_physics_init: Use sf_sfclay_physics= 1 or 91 for this pbl option' )
