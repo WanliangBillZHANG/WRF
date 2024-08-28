@@ -2162,10 +2162,10 @@ ENDIF
             if(allocate_status /= 0) FATAL_ERROR('Error allocating PERFLO_TBL in urban_param_init')
             ALLOCATE( HSESF_TBL(ICATE), stat=allocate_status )
             if(allocate_status /= 0) FATAL_ERROR('Error allocating HSESF_TBL in urban_param_init')
-            ！ALLOCATE( PV_FRAC_ROOF_TBL(ICATE), stat=allocate_status )
-            ！if(allocate_status /= 0) FATAL_ERROR('Error allocating PV_FRAC_ROOF_TBL in urban_param_init')
-            ！ALLOCATE( GR_FRAC_ROOF_TBL(ICATE), stat=allocate_status )
-            ！if(allocate_status /= 0) FATAL_ERROR('Error allocating GR_FRAC_ROOF_TBL in urban_param_init')
+            !ALLOCATE( PV_FRAC_ROOF_TBL(ICATE), stat=allocate_status )
+            !if(allocate_status /= 0) FATAL_ERROR('Error allocating PV_FRAC_ROOF_TBL in urban_param_init')
+            !ALLOCATE( GR_FRAC_ROOF_TBL(ICATE), stat=allocate_status )
+            !if(allocate_status /= 0) FATAL_ERROR('Error allocating GR_FRAC_ROOF_TBL in urban_param_init')
          endif
 
          numdir_tbl = 0
@@ -2359,16 +2359,16 @@ ENDIF
          read(string(indx+1:),*) hsequip_tbl(1:24)
       else if (name == "HSEQUIP_SCALE_FACTOR") then
          read(string(indx+1:),*) hsesf_tbl(1:icate)
-！    else if (name == "IRHO") then
-！      read(string(indx+1:),*) IRHO_TBL(1:24)
-！   else if ( name == "PV_FRAC_ROOF") then
-！   read(string(indx+1:),*) pv_frac_roof_tbl(1:icate)
-！     else if ( name == "GR_FRAC_ROOF") then
-！        read(string(indx+1:),*) gr_frac_roof_tbl(1:icate)
-！    else if (name == "GR_FLAG") then
-！        read(string(indx+1:),*) gr_flag_tbl
-！      else if (name == "GR_TYPE") then
-！        read(string(indx+1:),*) gr_type_tbl
+!    else if (name == "IRHO") then
+!      read(string(indx+1:),*) IRHO_TBL(1:24)
+!   else if ( name == "PV_FRAC_ROOF") then
+!   read(string(indx+1:),*) pv_frac_roof_tbl(1:icate)
+!     else if ( name == "GR_FRAC_ROOF") then
+!        read(string(indx+1:),*) gr_frac_roof_tbl(1:icate)
+!    else if (name == "GR_FLAG") then
+!        read(string(indx+1:),*) gr_flag_tbl
+!      else if (name == "GR_TYPE") then
+!        read(string(indx+1:),*) gr_type_tbl
 !end BEP         
       else
          FATAL_ERROR('URBPARM.TBL: Unrecognized NAME = "'//trim(name)//'" in Subr URBAN_PARAM_INIT')
