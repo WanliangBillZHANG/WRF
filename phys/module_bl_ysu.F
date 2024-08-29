@@ -241,7 +241,7 @@ contains
                                                                         dvsfc, &
                                                                         dtsfc, &
                                                                         dqsfc
-   real,dimension(its:ite,kts:kte,jts:jte) :: a_u,a_v,a_t,a_e,b_u,b_v,b_t,b_e, &
+   real,dimension(ims:ime,kms:kme,jms:jme) :: a_u,a_v,a_t,a_e,b_u,b_v,b_t,b_e, &
                                                      a_q,b_q,dlg,dl_u,sfk,vlk
    real,dimension(its:ite,jts:jte)         :: frcurb
    real :: bepswitch ! 0 if not using bep or bep+bem, 1 if using
@@ -249,21 +249,21 @@ contains
    qv2d(its:ite,:) = 0.0
 !
    bepswitch = 0.0
-   a_u(:,:,:)=0.0
-   a_v(:,:,:)=0.0
-   a_t(:,:,:)=0.0
-   a_q(:,:,:)=0.0
-   a_e(:,:,:)=0.0
-   b_u(:,:,:)=0.0
-   b_v(:,:,:)=0.0
-   b_t(:,:,:)=0.0
-   b_q(:,:,:)=0.0
-   b_e(:,:,:)=0.0
-   sfk(:,:,:)=1.0
-   vlk(:,:,:)=1.0
-   dl_u(:,:,:)=0.0
-   dlg(:,:,:)=0.0
-   frcurb(:,:)=0.0   
+   a_u=0.0
+   a_v=0.0
+   a_t=0.0
+   a_q=0.0
+   a_e=0.0
+   b_u=0.0
+   b_v=0.0
+   b_t=0.0
+   b_q=0.0
+   b_e=0.0
+   sfk=1.0
+   vlk=1.0
+   dl_u=0.0
+   dlg=0.0
+   frcurb=0.0   
 
    do j = jts,jte
       do k = kts,kte+1
@@ -277,7 +277,7 @@ contains
         do i = its,ite
           qv2d(i,k) = qv3d(i,k,j)
           qv2d(i,k+kte) = qc3d(i,k,j)
-          if(flag_qi) qv2d(i,k+kte+kte) = qi3d(i,k,j)
+          if(present(rqiblten)) qv2d(i,k+kte+kte) = qi3d(i,k,j)
         enddo
       enddo
 
@@ -349,7 +349,7 @@ contains
          rthblten(i,k,j) = rthblten(i,k,j)/pi3d(i,k,j)
          rqvblten(i,k,j) = rqvbl2dt(i,k)
          rqcblten(i,k,j) = rqvbl2dt(i,k+kte)
-         if(flag_qi) rqiblten(i,k,j) = rqvbl2dt(i,k+kte+kte)
+         if(present(rqiblten)) rqiblten(i,k,j) = rqvbl2dt(i,k+kte+kte)
        enddo
      enddo
 !
@@ -528,7 +528,7 @@ contains
 ! 
 ! local vars
 !
-   real,     dimension( its:ite, kts:kte ),                                    &
+   real,     dimension( ims:ime, kms:kme ),                                    &
              intent(in)      ::                                         a_u2d, &
                                                                         a_v2d, &
                                                                         a_t2d, &
@@ -546,7 +546,7 @@ contains
 
    real,     dimension( its:ite ),                                             &
              intent(in)      ::                                      frc_urb1d
-   real ::                                                           bepswitch
+   real,     intent(in)::                                              bepswitch
    real,     dimension( its:ite )            ::                           hol
    real,     dimension( its:ite, kts:kte+1 ) ::                            zq
 !
