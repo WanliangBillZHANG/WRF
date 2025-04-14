@@ -1,4 +1,4 @@
-# Author: Wanliang ZHANG Bill (wzhangcy@connect.ust.hk).
+# Author: Wanliang ZHANG Bill (wzhangcy@connect.ust.hk) & Tianyuan MA Christina (tmaak@connect.ust.hk).
 ## This version of WRF (WRF-reference) is modified from WRF-release-v415.
 ## This version serves as the standard reference model for SEA4C project. Further modifications have been carried out, and are documented elsewhere.
 ## The new feature of WRF-reference includes:
