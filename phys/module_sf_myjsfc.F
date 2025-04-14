@@ -1034,10 +1034,10 @@ CONTAINS
                   (VEGTYP .NE. 40) .and. (VEGTYP .NE. 41)) THEN
 
                   ! assign SQRTCD value based on the range of Z0
-                  IF (Z0 < 0.13) THEN
-                        SQRTCD = 0.06
-                  ELSE IF ((Z0 <= 0.30) .AND. (Z0 >= 0.13)) THEN
-                        SQRTCD = 0.11
+                  IF (Z0 < 0.12) THEN
+                        SQRTCD = 0.08
+                  ELSE IF ((Z0 <= 0.30) .AND. (Z0 >= 0.12)) THEN
+                        SQRTCD = 0.12
                   ELSE IF (Z0 > 0.30) THEN
                         SQRTCD = 0.16
                   ENDIF
