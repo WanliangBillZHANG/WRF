@@ -64,10 +64,11 @@ MODULE module_sf_bep_bem
       real rcp_u              !
       real sigma              !
       real p0                 ! Reference pressure at the sea level
-      real cdrag              ! Drag force constant
+      !real cdrag              ! Drag force constant
       real latent             ! Latent heat of vaporization [J/kg] (used in BEM)
       parameter(vk=0.40,g_u=9.81,pi=3.141592653,r=287.,cp_u=1004.)        
-      parameter(rcp_u=r/cp_u,sigma=5.67e-08,p0=1.e+5,cdrag=0.4,latent=2.45e+06)
+      !parameter(rcp_u=r/cp_u,sigma=5.67e-08,p0=1.e+5,cdrag=0.4,latent=2.45e+06)
+      parameter(rcp_u=r/cp_u,sigma=5.67e-08,p0=1.e+5,latent=2.45e+06)
 
 ! -----------------------------------------------------------------------     
 
@@ -1111,6 +1112,8 @@ MODULE module_sf_bep_bem
 !    Grid parameters
       integer nzu           ! Number of layer in the urban grid
       real z_u(nz_um)       ! Height of the urban grid levels
+      real alp
+      real cdrag(nz_um)
 !FS
       real cop_u(nurbm)
       real pwin_u(nurbm)
@@ -1710,11 +1713,32 @@ MODULE module_sf_bep_bem
         
 ! Compute the implicit and explicit components of the sources or sinks on the "urban grid"
      
-      call buildings(iurb,ndu,nzu,z0,ua_u,va_u,                               & 
-                     pt_u,pt0_u,ptg,ptr,da_u,ptw,ptwin,pwin_u(iurb),drst,     &                      
-                     uva_u,vva_u,uvb_u,vvb_u,tva_u,tvb_u,evb_u,qvb_u,qhb_u,   & 
+      do iz=1,nz_um
+       alp=0.
+       do id=1,ndu
+        alp=alp+bs(id)/(ws(id)+bs(id))*pb(iz)
+       enddo
+       alp=alp/ndu
+       if(alp.lt.0.29)then
+        cdrag(iz)=3.32*alp**0.47
+        !cdrag(iz)=0.4
+       else
+        cdrag(iz)=1.85
+        !cdrag(iz)=0.4
+       endif
+     enddo
+
+      call buildings(iurb,ndu,nzu,z0,cdrag,ua_u,va_u,                       & 
+                     pt_u,pt0_u,ptg,ptr,da_u,ptw,ptwin,pwin_u(iurb),drst,           &                      
+                     uva_u,vva_u,uvb_u,vvb_u,tva_u,tvb_u,evb_u,qvb_u,qhb_u,  & 
                      uhb_u,vhb_u,thb_u,ehb_u,ss,dt,sfw,sfg,sfr,               &
-                     sfwin,pb,bs_u,dz_u,sflev,lflev,sfvlev,lfvlev,tvb_ac)  
+                     sfwin,pb,bs_u,dz_u,sflev,lflev,sfvlev,lfvlev,tvb_ac)     
+      
+      !call buildings(iurb,ndu,nzu,z0,ua_u,va_u,                               & 
+      !               pt_u,pt0_u,ptg,ptr,da_u,ptw,ptwin,pwin_u(iurb),drst,     &                      
+      !               uva_u,vva_u,uvb_u,vvb_u,tva_u,tvb_u,evb_u,qvb_u,qhb_u,   & 
+      !               uhb_u,vhb_u,thb_u,ehb_u,ss,dt,sfw,sfg,sfr,               &
+      !               sfwin,pb,bs_u,dz_u,sflev,lflev,sfvlev,lfvlev,tvb_ac)  
       
 ! Calculation of the sensible heat fluxes for the ground, the wall and roof
 ! Sensible Heat Flux = density * Cp_U * ( A* potential temperature + B )
@@ -2269,7 +2293,7 @@ MODULE module_sf_bep_bem
 ! ===6=8===============================================================72     
 ! ===6=8===============================================================72  
 
-      subroutine buildings(iurb,nd,nz,z0,ua_u,va_u,pt_u,pt0_u,       &
+      subroutine buildings(iurb,nd,nz,z0,cdrag,ua_u,va_u,pt_u,pt0_u,       &
                         ptg,ptr,da_u,ptw,ptwin,pwin,                 &
                         drst,uva_u,vva_u,uvb_u,vvb_u,                &
                         tva_u,tvb_u,evb_u,qvb_u,qhb_u,               &
@@ -2302,6 +2326,7 @@ MODULE module_sf_bep_bem
       real ptw(2*ndm,nz_um,nbui_max)     ! Walls potential temperatures 
       real ss(nz_um)            ! probability to have a building with height h
       real pb(nz_um)
+      real cdrag(nz_um)
       real z0(ndm,nz_um)        ! Roughness lengths "profiles"
       real dt ! time step
       integer iurb              !Urban class
@@ -2424,7 +2449,7 @@ MODULE module_sf_bep_bem
                         uva_tmp,vva_tmp,                                    &   
                         uvb_tmp,vvb_tmp,                                    &   
                         sfw(2*id-1,iz,ibui),sfwin(2*id-1,iz,ibui),          &   
-                        evb_tmp,drst(id),dt)      
+                        evb_tmp,drst(id),dt,cdrag(iz))      
    
             if (pb(iz+1).gt.0.) then
 
@@ -2449,7 +2474,7 @@ MODULE module_sf_bep_bem
                         uva_tmp,vva_tmp,                           &    
                         uvb_tmp,vvb_tmp,                           &    
                         sfw(2*id,iz,ibui),sfwin(2*id,iz,ibui),     &   
-                        evb_tmp,drst(id),dt) 
+                        evb_tmp,drst(id),dt,cdrag(iz)) 
 
             if (pb(iz+1).gt.0.) then
 
@@ -3492,7 +3517,7 @@ MODULE module_sf_bep_bem
 ! ===6=8===============================================================72
   
       subroutine flux_wall(ua,va,pt,da,ptw,ptwin,uva,vva,uvb,vvb,  &
-                           sfw,sfwin,evb,drst,dt)         
+                           sfw,sfwin,evb,drst,dt,cdrag)         
        
 ! ----------------------------------------------------------------------
 ! This routine computes the surface sources or sinks of momentum, tke,
@@ -3510,6 +3535,7 @@ MODULE module_sf_bep_bem
       real ua                   ! wind speed
       real va                   ! wind speed
       real dt                   !time step
+      real cdrag
 
 ! OUTPUT:
 ! ------
