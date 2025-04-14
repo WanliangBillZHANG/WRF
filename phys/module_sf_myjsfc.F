@@ -415,6 +415,9 @@ CONTAINS
      &       ,TERM1,RLOW,U10E,V10E,WSTAR,XLT02,XLT024,XLT10            &
      &       ,XLT104,XLU10,XLU104,XU10,XU104,ZT02,ZT10,ZTAT02,ZTAT10   &
      &       ,ZTAU,ZTAU10,ZU10,ZUUZ
+      
+      REAL :: UV10 !MTY 2025/04/07
+      REAL :: SQRTCD
 !----------------------------------------------------------------------
 !**********************************************************************
 !----------------------------------------------------------------------
@@ -1018,6 +1021,35 @@ CONTAINS
 !
       U10=U10E
       V10=V10E
+      
+      ! MTY 2025/04/07
+      !--------Change the wind speed only on the land points, exclude the urban points
+
+      IF (SEAMASK < 0.5) THEN
+            IF ((VEGTYP .NE. ISURBAN) .and. (VEGTYP .NE. 31) .and. &
+                  (VEGTYP .NE. 32) .and. (VEGTYP .NE. 33) .and. &
+                  (VEGTYP .NE. 34) .and. (VEGTYP .NE. 35) .and. &
+                  (VEGTYP .NE. 36) .and. (VEGTYP .NE. 37) .and. &
+                  (VEGTYP .NE. 38) .and. (VEGTYP .NE. 39) .and. &
+                  (VEGTYP .NE. 40) .and. (VEGTYP .NE. 41)) THEN
+
+                  ! assign SQRTCD value based on the range of Z0
+                  IF (Z0 < 0.13) THEN
+                        SQRTCD = 0.06
+                  ELSE IF ((Z0 <= 0.30) .AND. (Z0 >= 0.13)) THEN
+                        SQRTCD = 0.11
+                  ELSE IF (Z0 > 0.30) THEN
+                        SQRTCD = 0.16
+                  ENDIF
+
+                  UV10 = USTAR / SQRTCD
+                  V10 = UV10 * (1 / (1 + (ULOW/VLOW)**2))**0.5
+                  U10 = ULOW/VLOW * V10
+            ELSE
+                  print*,'Urban point, no change in wind speed'
+            ENDIF
+      ENDIF
+
 !
 !----------------------------------------------------------------------
 !***  SET OTHER WRF DRIVER ARRAYS
